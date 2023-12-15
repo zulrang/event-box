@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "pyxbox"
+name = "event-box"
 version = "0.1.0"
 description = "A Simple implementation of the transactional outbox/inbox patterns using PostgreSQL/asyncpg"
 authors = ["Roger Collins <zulrang@gmail.com>"]
 readme = "README.md"
 packages = [
-    { include = "pyxbox", from="src" },
+    { include = "event_box", from="src" },
 ]
 
 [tool.poetry.dependencies]

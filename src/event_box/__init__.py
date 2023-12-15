@@ -5,6 +5,8 @@ from .storage.pg_eventstore import PostgresEventStore
 from .tx_inbox import TransactionalInbox
 from .tx_outbox import TransactionalOutbox
 
+TransactionalOutboxProvider = TransactionalInbox
+
 __all__ = [
     "Event",
     "PostgresEventSource",
@@ -12,4 +14,5 @@ __all__ = [
     "TransactionalInbox",
     "TransactionalOutbox",
     "EventHandler",
+    "TransactionalOutboxProvider",
 ]

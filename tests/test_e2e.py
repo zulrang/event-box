@@ -2,12 +2,11 @@ from datetime import datetime
 from uuid import UUID, uuid4
 
 import asyncpg
-from pydantic import Field, BaseModel
 import pytest
 from asyncpg.connection import Connection
-
-from pyxbox import Event, PostgresEventSource, PostgresEventStore, TransactionalInbox, TransactionalOutbox
-from pyxbox.datetime import utcnow
+from event_box import Event, PostgresEventSource, PostgresEventStore, TransactionalInbox, TransactionalOutbox
+from event_box.datetime import utcnow
+from pydantic import BaseModel, Field
 
 
 class User(BaseModel):

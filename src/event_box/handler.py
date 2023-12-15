@@ -2,8 +2,7 @@ import asyncio
 import signal
 from typing import Any, Callable
 
-from .event import Event
-from .ports import EventProvider
+from .ports import Event, EventProvider
 
 
 class EventHandler:

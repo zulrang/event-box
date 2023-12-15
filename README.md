@@ -1,18 +1,18 @@
-# pyxbox
+# event-box
 
-pyxbox is a Python library that provides basic implementations of the transactional outbox and inbox patterns using asyncpg.
+event_box is a Python library that provides basic implementations of the transactional outbox and inbox patterns using asyncpg.
 
 ## Installation
 
-You can install pyxbox using pip:
+You can install event_box using pip:
 ```bash
-$ pip install pyxbox
+$ pip install event-box
 ```
 
 ## Usage
 
 ### Emitting Events
-`pyxbox` works by taking an existing PostgreSQL connection, which may or may not have an active transaction,
+`event-box` works by taking an existing PostgreSQL connection, which may or may not have an active transaction,
 and dispatches subclasses of the `Event` class (which is a Pydantic data class) into the configurable `events` table
 in the database.
 
@@ -20,7 +20,7 @@ The class allows for optional `_topic` and `_partition_key` fields which can be 
 external event stream or queue.
 
 ```python
-from pyxbox import Event, PostgresEventStore, TransactionalOutbox
+from event_box import Event, PostgresEventStore, TransactionalOutbox
 
 
 class CustomEvent(Event):
@@ -49,14 +49,14 @@ independent background process or daemon, or within its own container.  Each loo
 exceptions will ensure the event remains in the outbox.
 
 ```python
-from pyxbox import Event, PostgresEventSource, TransactionalInbox
+from event_box import Event, PostgresEventSource, TransactionalOutboxProvider
 
 
 async def dispatch_events():
     connection = await asyncpg.connect('postgresql://test:testpass@localhost:5432/test')
-    inbox = TransactionalInbox(PostgresEventSource(connection))
+    outbox = TransactionalOutboxProvider(PostgresEventSource(connection))
 
-    for event in inbox.next():
+    for event in outbox.next():
         if event:
             # dispatch event to Kafka, Kinesis, SQS, etc.
             # require ack to ensure delivery
@@ -68,7 +68,7 @@ async def dispatch_events():
 Another method is to handle events directly in the local code base.  The included EventHandler can assist with this.
 
 ```python
-from pyxbox import Event, EventHandler
+from event_box import Event, EventHandler
 
 
 @EventHandler.on(CustomEvent)
