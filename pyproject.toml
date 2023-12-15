@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "pyxbox"
+version = "0.1.0"
+description = "A Simple implementation of the transactional outbox/inbox patterns using PostgreSQL/asyncpg"
+authors = ["Roger Collins <zulrang@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "pyxbox", from="src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.5.2"
+asyncpg = "^0.29.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+pytest-asyncio = "^0.23.2"
+
+[tool.poetry.group.lint.dependencies]
+mypy = "^1.7.1"
+ruff = "^0.1.7"
+asyncpg-stubs = "^0.29.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+asyncio_mode = "auto"
